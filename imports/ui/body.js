@@ -16,25 +16,30 @@ Template.body.helpers({
   tasks() {
     const instance = Template.instance();
     if (instance.state.get('hideCompleted')) {
+      // If hide completed is checked, filter tasks
       return Tasks.find({ checked: { $ne: true } }, { sort: { createdAt: -1 } });
     }
-    return Tasks.find({}, { sort: {createdAt: -1}});
+    // Otherwise, return all of the tasks
+    return Tasks.find({}, { sort: { createdAt: -1 } });
+  },
+  incompleteCount() {
+    return Tasks.find({ checked: { $ne: true } }).count();
   },
 });
 
 Template.body.events({
   'submit .new-task'(event) {
-    // prevent degault browser form submit
+    // Prevent default browser form submit
     event.preventDefault();
 
     // Get value from form element
     const target = event.target;
     const text = target.text.value;
 
-    //Insert a task into the collection
+    // Insert a task into the collection
     Tasks.insert({
       text,
-      createdAt: new Date(), //current time
+      createdAt: new Date(), // current time
     });
 
     // Clear form
