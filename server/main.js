@@ -1,5 +1,3 @@
-import { Meteor } from 'meteor/meteor';
+/*jshint esversion: 6 */
 
-Meteor.startup(() => {
-  // code to run on server at startup
-});
+import '../imports/api/tasks.js';
