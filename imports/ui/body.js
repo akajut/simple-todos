@@ -11,3 +11,23 @@ Template.body.helpers({
     return Tasks.find({});
   },
 });
+
+Template.body.events({
+  'submit .new-task'(event) {
+    // prevent degault browser form submit
+    event.preventDefault();
+
+    // Get value from form element
+    const target = event.target;
+    const text = target.text.value;
+
+    //Insert a task into the collection
+    Tasks.insert({
+      text,
+      createdAt: new Date(), //current time
+    });
+
+    // Clear form
+    target.text.value = '';
+  },
+});
