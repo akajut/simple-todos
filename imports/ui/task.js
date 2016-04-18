@@ -3,13 +3,11 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 
-import { Tasks } from '../api/tasks.js';
-
 import './task.html';
 
 Template.task.helpers({
   isOwner() {
-    return this.owner === meteor.userId();
+    return this.owner === Meteor.userId();
   },
 });
 
@@ -22,6 +20,6 @@ Template.task.events({
     Meteor.call('tasks.remove', this._id);
   },
   'click .toggle-private'() {
-    Meteor.call('tasks.setPrivate', this._id, !this.provate);
+    Meteor.call('tasks.setPrivate', this._id, !this.private);
   },
 });
